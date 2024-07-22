@@ -1,7 +1,9 @@
-// allo
-
 let humanScore = 0;
 let computerScore = 0;
+const rockBtn = document.querySelector("#rockBtn");
+const results = document.querySelector("#round-result");
+const scores = document.querySelector("#scores");
+const finalResult = document.querySelector("#final-result");
 
 function getComputerChoice() {
   const rand = Math.random();
@@ -16,14 +18,13 @@ function getComputerChoice() {
   return computerChoice;
 }
 
-function getHumanChoice() {
-  let humanChoice = prompt("rock, paper, scissors?");
-  humanChoice = humanChoice.toLowerCase();
-  return humanChoice;
-}
+// function getHumanChoice() {
+//   let humanChoice = prompt("rock, paper, scissors?");
+//   humanChoice = humanChoice.toLowerCase();
+//   return humanChoice;
+// }
 
-function playRound() {
-  const humanChoice = getHumanChoice();
+function playRound(humanChoice) {
   const computerChoice = getComputerChoice();
   if (humanChoice === computerChoice) {
     return "Both chose: " + humanChoice + " It's a tie";
@@ -71,7 +72,7 @@ function playRound() {
     }
   }
   if (humanChoice === "scissors") {
-    if (computerChoice === "rock") {
+    if (computerChoice === "paper") {
       humanScore++;
       return (
         "Human: " +
@@ -105,4 +106,37 @@ function playGame() {
   }
 }
 
-console.log(playGame());
+function resetGame() {
+  humanScore = 0;
+  computerScore = 0;
+  results.innerText = "";
+  scores.innerText = "";
+  finalResult.innerText = "";
+}
+
+rockBtn.addEventListener("click", function () {
+  results.innerText = playRound("rock");
+  scores.innerText = `Human: ${humanScore} Computer: ${computerScore}`;
+  if (humanScore === 3 || computerScore === 3) {
+    finalResult.innerText =
+      humanScore === 3 ? "Human wins tournament" : "Computer wins tournament";
+  }
+});
+
+paperBtn.addEventListener("click", function () {
+  results.innerText = playRound("paper");
+  scores.innerText = `Human: ${humanScore} Computer: ${computerScore} `;
+  if (humanScore === 3 || computerScore === 3) {
+    finalResult.innerText =
+      humanScore === 3 ? "Human wins tournament" : "Computer wins tournament";
+  }
+});
+
+scissorsBtn.addEventListener("click", function () {
+  results.innerText = playRound("scissors");
+  scores.innerText = `Human: ${humanScore} Computer: ${computerScore} `;
+  if (humanScore === 3 || computerScore === 3) {
+    finalResult.innerText =
+      humanScore === 3 ? "Human wins tournament" : "Computer wins tournament";
+  }
+});
